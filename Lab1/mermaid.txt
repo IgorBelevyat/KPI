@@ -1,0 +1,48 @@
+erDiagram
+
+    Customer {
+        string login PK
+        string password PK
+        string role
+        string personal_data
+        string cart_data
+    }
+
+    Categories {
+        string name
+        int category_nesting_level
+    }
+
+    Product {
+        string images
+        string name
+        string description
+        float price
+        int quantity
+    }
+
+    Order_item {
+        date date
+        float price_at_time_of_purchase
+        string payment_method
+        string shipment_data
+        string bill_generation
+        int quantity
+    }
+
+    Attributes {
+        string name
+        string unit_of_measurement
+        int attribute_nesting_level
+    }
+
+    attribute_value {
+        string value
+    }
+
+    Categories }o--o{ attribute_value : "has"
+    Categories }|--|{ Product : "has"
+    Product ||--o{ Order_item : "includes"
+    Customer ||--o{ Order_item : "makes"
+    Product }|--o{ attribute_value : "has"
+    Attributes ||--o{ attribute_value : "defines"
