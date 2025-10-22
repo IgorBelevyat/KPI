@@ -1,4 +1,4 @@
-| **Use cases ↓ / Requirements →** | Authorization | Representative content | Convenient to view products in the catalog | Buy products | Manage users | Manage products | Manage categories | Manage product properties |
+| **Use cases ↓ / Requirements →** | Authorization | Representative content | Conveniently view products in the catalog | Buy products | Manage users | Manage products | Manage categories | Manage product properties |
 |:---------------------------------|:--------------:|:----------------------:|:------------------------------------------:|:-------------:|:-------------:|:----------------:|:------------------:|:--------------------------:|
 | Authorization via Login and Password | X |  |  |  |  |  |  |  |
 | Authorization via Google | X |  |  |  |  |  |  |  |

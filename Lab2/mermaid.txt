@@ -1,0 +1,124 @@
+flowchart LR
+
+Admin["Admin"]:::actor
+Customer["User (customer)"]:::actor
+Cloudinary["Cloudinary (external service)"]:::actor
+
+
+
+UC_auth(Authorization):::usecase
+UC_auth_pwd(Authorization via Login and Password):::usecase
+UC_auth_google(Authorization via Google):::usecase
+
+UC_view_products(View products):::usecase
+UC_sort(Sort products):::usecase
+UC_sort_cat(Sort products by categories):::usecase
+UC_sort_attr(Sort products by attributes and their values):::usecase
+
+UC_view_banner(View banner):::usecase
+UC_info(Read info about company):::usecase
+UC_cart(Add to cart):::usecase
+UC_buy(Buy products):::usecase
+UC_pay(Pay):::usecase
+UC_check(Get a check):::usecase
+
+UC_add_product(Add products):::usecase
+UC_change_product(Change products info):::usecase
+UC_delete_product(Delete products):::usecase
+
+UC_add_cat(Add categories):::usecase
+UC_change_cat(Change categories properties):::usecase
+UC_delete_cat(Delete categories):::usecase
+UC_nest_cat(Make it possible to nest categories):::usecase
+UC_assign_prod_cat(Add / delete products to categories):::usecase
+UC_cat_attrs(Give / put away categories an attributes and their values):::usecase
+
+UC_add_attr(Add attributes):::usecase
+UC_change_attr(Change attributes properties):::usecase
+UC_delete_attr(Delete attributes):::usecase
+UC_prod_attrs(Give / put away products, an attributes and their values):::usecase
+
+UC_view_images(View various images):::usecase
+UC_add_images(Add various images):::usecase
+UC_banner_add(Add banner slides):::usecase
+UC_banner_change(Change banner slides):::usecase
+UC_banner_delete(Delete banner slides):::usecase
+
+UC_change_roles(Change users roles):::usecase
+UC_delete_user(Delete users):::usecase
+
+Admin --> UC_auth
+Admin --> UC_add_product
+Admin --> UC_change_product
+Admin --> UC_delete_product
+Admin --> UC_add_cat
+Admin --> UC_change_cat
+Admin --> UC_delete_cat
+Admin --> UC_add_attr
+Admin --> UC_change_attr
+Admin --> UC_delete_attr
+Admin --> UC_view_images
+Admin --> UC_banner_add
+Admin --> UC_banner_change
+Admin --> UC_banner_delete
+Admin --> UC_view_banner
+Admin --> UC_change_roles
+Admin --> UC_view_products
+Admin --> UC_info
+Admin --> UC_sort
+Admin --> UC_delete_user
+
+Customer --> UC_auth
+Customer --> UC_view_products
+Customer --> UC_sort
+Customer --> UC_view_banner
+Customer --> UC_info
+Customer --> UC_cart
+Customer --> UC_buy
+
+Cloudinary --- UC_view_images
+Cloudinary --- UC_add_images
+Cloudinary --- UC_banner_add
+Cloudinary --- UC_banner_change
+Cloudinary --- UC_banner_delete
+
+UC_auth_pwd -.-> |extend| UC_auth
+UC_auth_google -.-> |extend| UC_auth
+
+UC_add_images -.-> |extend| UC_add_product
+UC_add_images -.-> |extend| UC_banner_add
+
+
+UC_view_banner -.-> |include| UC_banner_add
+UC_view_banner -.-> |include| UC_banner_change
+UC_view_banner -.-> |include| UC_banner_delete
+
+UC_view_products -.-> |include not necessary| UC_sort
+UC_sort_cat -.-> |extend| UC_sort
+UC_sort_attr -.-> |extend| UC_sort
+
+UC_buy -.-> |include| UC_cart
+UC_pay -.-> |extend| UC_buy
+UC_pay -.-> |include| UC_check
+
+UC_nest_cat -.-> |extend| UC_add_cat
+UC_cat_attrs -.-> |include| UC_add_cat
+UC_change_cat -.-> |extend| UC_cat_attrs
+UC_assign_prod_cat -.-> |include| UC_add_cat
+UC_view_images -.-> |extend| UC_view_products
+
+UC_cat_attrs -.-> |include| UC_add_attr
+UC_prod_attrs -.-> |include| UC_add_attr
+UC_cat_attrs -.-> |include| UC_change_attr
+UC_prod_attrs -.-> |include| UC_change_attr
+
+UC_cart -.-> |include| UC_view_products
+UC_view_products -.-> |include| UC_add_product
+UC_sort_cat -.-> |include| UC_assign_prod_cat
+UC_sort_attr -.-> |include| UC_cat_attrs
+UC_sort_attr -.-> |include| UC_prod_attrs
+
+UC_change_roles -.-> |include| UC_auth
+UC_delete_user -.-> |include| UC_auth
+UC_assign_prod_cat -.-> |include| UC_add_product
+UC_prod_attrs -.-> |include| UC_add_product
