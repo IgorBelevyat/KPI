@@ -6,7 +6,7 @@
 | Add banner slides |  | X |  |  |  |  |  |  |
 | Change banner slides |  | X |  |  |  |  |  |  |
 | Delete banner slides |  | X |  |  |  |  |  |  |
-| View products |  | X |  |  |  |  |  |  |
+| View products |  |  | X |  |  |  |  |  |
 | View various images |  |  | X |  |  |  |  |  |
 | Sort products |  |  | X |  |  |  |  |  |
 | Sort products by categories |  |  | X |  |  |  |  |  |
@@ -16,7 +16,7 @@
 | Select count |  |  |  | X |  |  |  |  |
 | Pay |  |  |  | X |  |  |  |  |
 | Get a check |  |  |  | X |  |  |  |  |
-| Delete users |  |  |  |  |  | X |  |  |
+| Delete users |  |  |  |  | X |  |  |  |
 | Change users roles |  |  |  |  | X |  |  |  |
 | Add products |  |  |  |  |  | X |  |  |
 | Add various images |  |  |  |  |  | X |  |  |
@@ -25,7 +25,7 @@
 | Add categories |  |  |  |  |  |  | X |  |
 | Add / delete products to categories |  |  |  |  |  |  | X | X |
 | Give / put away categories and their attributes and values |  |  |  |  |  |  | X | X |
-| Make categories to nest categories |  |  |  |  |  |  | X |  |
+| Make nesting categories |  |  |  |  |  |  | X |  |
 | Change categories properties |  |  |  |  |  |  | X |  |
 | Delete categories |  |  |  |  |  |  | X |  |
 | Give / put away products and their attributes and values |  |  |  |  |  |  |  | X |
