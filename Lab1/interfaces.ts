@@ -1,9 +1,9 @@
 export interface Customer {
-    login: string;          
-    passwordHash: string;       
-    role: string;
-    personal_data?: string; 
-    cart_data?: string; 
+  login: string;          
+  passwordHash: string;       
+  role: string;
+  personal_data?: string; 
+  cart_data?: string; 
 }
 
 
@@ -23,17 +23,21 @@ export interface Product {
   categoryId: string;
 }
 
-
-export interface OrderItem {
+export interface Order {
   id: string;
   date: string;
-  price_at_time_of_purchase: number;
   payment_method: string;
   shipment_data?: string;
   bill_generation?: string;
+  order_items_count: number;
+  customerId: string;
+}
+
+export interface Order_item {
+  id: string;
+  price_at_time_of_purchase: number;
   quantity: number;
   productId: string;
-  customerId: string;
 }
 
 export interface Attribute {

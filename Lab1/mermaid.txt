@@ -21,12 +21,15 @@ erDiagram
         int quantity
     }
 
-    Order_item {
+    Order {
         date date
-        float price_at_time_of_purchase
         string payment_method
         string shipment_data
         string bill_generation
+        int order_items_count
+    }
+    Order_item {
+        float price_at_the_time_of_purchase
         int quantity
     }
 
@@ -40,9 +43,10 @@ erDiagram
         string value
     }
 
-    Categories }o--o{ attribute_value : "has"
-    Categories }|--|{ Product : "has"
+    Categories }o--o{ Attributes : "has"
+    Categories }|--o{ Product : "has"
     Product ||--o{ Order_item : "includes"
-    Customer ||--o{ Order_item : "makes"
+    Customer ||--o{ Order : "makes"
     Product }|--o{ attribute_value : "has"
     Attributes ||--o{ attribute_value : "defines"
+    Order ||--o{ Order_item : "has"
