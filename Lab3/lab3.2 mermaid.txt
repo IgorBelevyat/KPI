@@ -1,0 +1,38 @@
+sequenceDiagram
+    participant DB
+    participant Cloudinary
+    participant API
+    participant CarShop as "Car shop"
+    participant Admin
+
+    Admin ->> CarShop: 1. Switch to admin panel
+
+    alt Suitable category exists
+        Admin ->> CarShop: 2.1 Choose category
+    else Suitable category doesn't exist
+        Admin ->> CarShop: 2.1 Create category
+        Admin ->> CarShop: 2.2 Choose category
+    end
+
+    Admin ->> CarShop: 3 Create product
+    Admin ->> CarShop: 3.1 Add title
+    Admin ->> CarShop: 3.2 Add description
+    Admin ->> CarShop: 3.3 Add price
+    Admin ->> CarShop: 3.4 Add images
+    CarShop ->> API: 
+    API ->> Cloudinary: 4. Send images
+    Cloudinary -->> API: 5. Get link
+    API ->> DB: 6. Send link
+
+
+    opt Add attributes
+        alt Suitable attribute exists
+            Admin ->> CarShop: Choose attribute
+            Admin ->> CarShop: Give attribute value
+        else Suitable attribute doesn't exist
+            Admin ->> CarShop: Create attribute
+            Admin ->> CarShop: Give attribute value
+        end
+    end
+
+    Note over Admin,DB: Process finished

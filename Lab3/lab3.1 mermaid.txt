@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant User
+    participant CarShop as "Car shop"
+    participant Admin
+
+    Admin ->> CarShop: 1. Add products
+    User ->> CarShop: 2. View products
+
+
+    alt Hasn't found necessary product
+        loop Need more products
+            User ->> CarShop: 3.1 Use filters
+            CarShop -->> User: 4.1 Get filtered result
+
+            alt Hasn't found necessary product at all
+                Note over User,CarShop: User stops searching
+            else Has found necessary product or skip it
+                Note over User,CarShop: Continues
+            end
+        end
+
+    else Has found necessary product
+        User ->> CarShop: 3.2 Add product to cart
+        User ->> CarShop: 4.2 Select count
+        User ->> CarShop: 5. Give shipment data
+        User ->> CarShop: 6. Select card and pay
+
+        alt Customer hasn’t enough money on selected card
+            CarShop -->> User: 7.1 Send message
+        else Customer has enough money on selected card
+            CarShop -->> User: 7.2 Send a check
+        end
+    end
+
+
