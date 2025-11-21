@@ -12,8 +12,8 @@
 
 ## Non-Functional Requirements
 1. **UI/UX** — the system must have a modern, intuitive, and responsive interface.  
-2. **Performance** — page load time must be under 2 seconds under average load.  
+2. **Performance** — page load time must be under 2 seconds under 2000 users load.  
 3. **Security** — the system must be protected from intruders.  
 4. **Localization** — support at least English + Ukrainian languages.  
-5. **Compatibility** — work correctly on major browsers and devices.  
+5. **Compatibility** — work correctly on Chrome (110+), Safari (16+), Firefox (100+), Opera (100+), Edge (110+).  
 6. **Accessibility** — readable fonts, proper contrast, keyboard navigation.  
