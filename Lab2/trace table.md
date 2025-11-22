@@ -1,7 +1,7 @@
 | **Use cases ↓ / Requirements →** | Authorization | Representative content | Conveniently view products in the catalog | Buy products | Manage users | Manage products | Manage categories | Manage product properties |
 |:---------------------------------|:--------------:|:----------------------:|:------------------------------------------:|:-------------:|:-------------:|:----------------:|:------------------:|:--------------------------:|
-| Authorization via Login and Password | X |  |  | X | X |  |  |  |
-| Authorization via Google | X |  |  | X | X |  |  |  |
+| Authorization via Login and Password | X |  |  | X | X | X | X | X |
+| Authorization via Google | X |  |  | X | X | X | X | X |
 | View banner |  | X |  |  |  |  |  |  |
 | Add banner slides | X | X |  |  |  |  |  |  |
 | Change banner slides | X | X |  |  |  |  |  |  |
