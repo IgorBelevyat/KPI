@@ -1,0 +1,79 @@
+flowchart LR
+
+    %% CUSTOMER
+    subgraph C[Customer]
+        Cstart((Start))
+
+        Cview[View products]
+        Cfound{Found necessary product?}
+
+        CuseFilters[Use filters]
+        CviewFiltered[View filtered products]
+        CfoundFiltered{Found product after filtering?}
+
+        Cadd[Add product to cart and select quantity]
+        Ccart[Customer cart with products]
+        Cmore{Need more products?}
+
+        Cship[Give shipment data]
+        CnotifGet[Receive notification]
+        Cpay[Pay - redirect to Portmone]
+
+        CgetCheck[Get check]
+        CgetError[Get error]
+        CnoProduct[Has not found necessary product]
+    end
+
+    %% SHOP (SYSTEM) 
+    subgraph S[Shop]
+        SfilterParams[Filter params]
+        SprocessFiltering[Process filtering]
+
+        ScartItem[Customer cart item]
+        SaddCart[Add product to customer cart]
+
+        SshipData[Shipment data]
+        SprocessData[Process data]
+        Snotif[Notification]
+
+        SrecCheck[Receive check]
+        Scheck[(Check)]
+
+        SrecError[Receive error]
+        Serror[(Error)]
+    end
+
+    %%  PORTMONE 
+    subgraph P[Portmone - external service]
+        Pselect[Select card and pay]
+        Pmoney{Enough money on selected card?}
+
+        PsendCheck[Send check]
+        PsendError[Send error]
+
+        PanotherCard{Has another card?}
+        Pchange[Change card and pay]
+        PnoCard[Has not another card]
+    end
+
+    End((End))
+
+
+    Cstart --> Cview
+    Cview --> Cfound
+    Cfound -- "yes" --> Cadd
+    Cfound -- "no" --> CuseFilters
+    CuseFilters --> SfilterParams --> SprocessFiltering --> CviewFiltered
+    CviewFiltered --> CfoundFiltered
+    CfoundFiltered -- "yes" --> Cadd
+    CfoundFiltered -- "no" --> CnoProduct --> End
+    Cadd --> ScartItem --> SaddCart --> Ccart --> Cmore
+    Cmore -- "yes" --> Cview
+    Cmore -- "no" --> Cship
+    Cship --> SshipData --> SprocessData --> Snotif --> CnotifGet --> Cpay
+    Cpay --> Pselect
+    Pselect --> Pmoney
+    Pmoney -- "yes" --> PsendCheck --> SrecCheck --> Scheck --> CgetCheck --> End
+    Pmoney -- "no" --> PsendError --> PanotherCard
+    PanotherCard -- "yes" --> Pchange --> Pselect
+    PanotherCard -- "no" --> PnoCard --> SrecError --> Serror --> CgetError --> End
