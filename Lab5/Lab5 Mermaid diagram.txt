@@ -1,0 +1,134 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+ subgraph CC["Common Components"]
+        btn["Buttons"]
+        notify["Notification messages"]
+        fields["Fields templates"]
+        other["..."]
+  end
+ subgraph MP["Main Page"]
+        mainPage["Main Page"]
+        mainPageCmp["Main Page Components"]
+  end
+ subgraph CAT["Catalog Page"]
+        catalogPage["Catalog Page"]
+        catalogCmp["Catalog Page Components"]
+  end
+ subgraph PROF["Profile Page"]
+        profilePage["Profile Page"]
+        profileCmp["Profile Page Components"]
+  end
+ subgraph ADM["Admin Page"]
+        adminPage["Admin Page"]
+        adminCmp["Admin Page Components"]
+  end
+ subgraph PAGES["Pages"]
+        MP
+        CAT
+        PROF
+        ADM
+  end
+ subgraph STORES["Stores"]
+        admStore["Admin Page Store"]
+        profStore["Profile Page Store"]
+        mpStore["Main Page Store"]
+        catStore["Catalog Page Store"]
+  end
+ subgraph API_CLIENTS["API"]
+        mpApi["Main Page API"]
+        catApi["Catalog Page API"]
+        profApi["Profile Page API"]
+        admApi["Admin Page API"]
+  end
+ subgraph WEB["Web App"]
+        CC
+        PAGES
+        STORES
+        validator["Validator"]
+        storage[("Storage")]
+        API_CLIENTS
+  end
+ subgraph CTRL["Controllers"]
+        authCtrl["Auth Controller"]
+        attrCtrl["Attribute Controller"]
+        bannerCtrl["Banner Controller"]
+        catCtrl["Category Controller"]
+        userCtrl["User Controller"]
+        prodCtrl["Product Controller"]
+  end
+ subgraph SRV["Services"]
+        authSrv["Auth Service"]
+        attrSrv["Attribute Service"]
+        bannerSrv["Banner Service"]
+        catSrv["Category Service"]
+        userSrv["User Service"]
+        prodSrv["Product Service"]
+  end
+ subgraph REPO["Repositories"]
+        authRepo["Auth Repository"]
+        attrRepo["Attribute Repository"]
+        bannerRepo["Banner Repository"]
+        catRepo["Category Repository"]
+        userRepo["User Repository"]
+        prodRepo["Product Repository"]
+  end
+ subgraph INFRA["Services"]
+        entryCfg["EntryPoints Config"]
+        corsCfg["CORS Config"]
+        authMw["Auth API"]
+        jsonVal["JSON Schema Validator"]
+        CTRL
+        SRV
+        REPO
+  end
+ subgraph API["API server"]
+        httpRouter["HTTP Router"]
+        INFRA
+        pool["DB Connection Pool"]
+  end
+    mainPage --> mainPageCmp
+    catalogPage --> catalogCmp
+    profilePage --> profileCmp
+    adminPage --> adminCmp
+    btn --> mainPageCmp & catalogCmp & profileCmp & adminCmp
+    notify --> mainPageCmp & catalogCmp & profileCmp & adminCmp
+    fields --> mainPageCmp & catalogCmp & profileCmp & adminCmp
+    mainPageCmp --> mpStore
+    catalogCmp --> catStore
+    profileCmp --> profStore
+    adminCmp --> admStore
+    mpStore --> validator & mpApi
+    validator --> storage
+    catStore --> validator & catApi
+    profStore --> validator & profApi
+    admStore --> validator & admApi
+    mpApi -- HTTP API --> httpRouter
+    catApi -- HTTP API --> httpRouter
+    profApi -- HTTP API --> httpRouter
+    admApi -- HTTP API --> httpRouter
+    httpRouter --> entryCfg & corsCfg & authMw & jsonVal
+    authMw --> authCtrl & attrCtrl & bannerCtrl & catCtrl & userCtrl & prodCtrl
+    authSrv --> authMw
+    jsonVal --> authCtrl & attrCtrl & bannerCtrl & catCtrl & userCtrl & prodCtrl
+    authCtrl -- Service API --> authSrv
+    attrCtrl -- Service API --> attrSrv
+    bannerCtrl -- Service API --> bannerSrv
+    catCtrl -- Service API --> catSrv
+    userCtrl -- Service API --> userSrv
+    prodCtrl -- Service API --> prodSrv
+    authSrv -- Repository API --> authRepo
+    attrSrv -- Repository API --> attrRepo
+    bannerSrv -- Repository API --> bannerRepo
+    catSrv -- Repository API --> catRepo
+    userSrv -- Repository API --> userRepo
+    prodSrv -- Repository API --> prodRepo
+    authRepo -- DB connection --> pool
+    attrRepo -- DB connection --> pool
+    bannerRepo -- DB connection --> pool
+    catRepo -- DB connection --> pool
+    userRepo -- DB connection --> pool
+    prodRepo -- DB connection --> pool
+    pool --> db[("PostgreSQL")]
